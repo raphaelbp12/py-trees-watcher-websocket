@@ -7,14 +7,17 @@ import React, {
 } from "react";
 import "./App.css";
 import Home from "./pages/home";
-import { RosbridgeProvider } from "./providers/RosBridge";
+import { MessageHistoryProvider } from "./providers/MessageHistoryProvider";
+import { RosbridgeProvider } from "./providers/RosbridgeProvider";
 
 function App() {
   return (
     <RosbridgeProvider>
-      <div className="App">
-        <Home />
-      </div>
+      <MessageHistoryProvider>
+        <div className="App">
+          <Home />
+        </div>
+      </MessageHistoryProvider>
     </RosbridgeProvider>
   );
 }

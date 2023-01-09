@@ -6,7 +6,8 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { RosbridgeContext } from "../../providers/RosBridge";
+import { MessageHistoryContext } from "../../providers/MessageHistoryProvider";
+import { RosbridgeContext } from "../../providers/RosbridgeProvider";
 
 type TreeToRender = {
   tree: any;
@@ -18,7 +19,8 @@ let timeline_graph: any = null;
 let timeline_paper: any = null;
 
 function Home() {
-  const { message } = useContext(RosbridgeContext);
+  const { message } = useContext(MessageHistoryContext);
+
   const canvasRef = useRef(null);
   // @ts-ignore
   // py_trees.hello();
@@ -51,7 +53,6 @@ function Home() {
 
   useEffect(() => {
     if (!message) return;
-    console.log("message", message);
     const data = JSON.parse(message);
     if (data && data.activity && data.activity[0]) {
       data.activity[0] = data.activity[0].replaceAll("[doubleQuote]", '"');
@@ -60,18 +61,6 @@ function Home() {
     console.log("tree", tree);
     render_tree(tree);
   }, [message, render_tree]);
-
-  // useEffect(() => {
-  //   if (treeState === 1) {
-  //     setTree(mockedTree);
-  //   }
-  //   if (treeState === 2) {
-  //     setTree(demoTree);
-  //   }
-  //   setTimeout(() => {
-  //     setTreeState(treeState === 1 ? 2 : 1);
-  //   }, 3000);
-  // }, [treeState, setTreeState]);
 
   useLayoutEffect(() => {
     function updateSize() {
