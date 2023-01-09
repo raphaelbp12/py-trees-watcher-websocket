@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import React, { FC, useCallback, useContext, useEffect, useState } from "react";
 import { RosbridgeContext } from "../RosbridgeProvider";
 var ROSLIB = require("roslib");
@@ -126,16 +126,18 @@ export const MessageHistoryProvider: FC<Props> = ({ children }) => {
             >
               Erase
             </Button>
-            <div>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={stopRecord}
-                  onChange={handleChange}
-                />
-                Stop Record
-              </label>
-            </div>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={stopRecord}
+                    onChange={handleChange}
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+                }
+                label="Pause Record"
+              />
+            </FormGroup>
           </div>
         </div>
         {children}
