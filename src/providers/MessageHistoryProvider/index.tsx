@@ -1,4 +1,11 @@
-import { Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+} from "@mui/material";
 import React, { FC, useCallback, useContext, useEffect, useState } from "react";
 import { RosbridgeContext } from "../RosbridgeProvider";
 var ROSLIB = require("roslib");
@@ -52,83 +59,88 @@ export const MessageHistoryProvider: FC<Props> = ({ children }) => {
   return (
     <MessageHistoryContext.Provider value={messageHistoryContext}>
       <>
-        <div
-          style={{
+        <Card
+          sx={{
+            minWidth: 275,
             position: "absolute",
-            top: "0px",
-            left: "0px",
-            backgroundColor: stopRecord ? "red" : "green",
+            bottom: "5px",
+            left: "50%",
+            backgroundColor: stopRecord
+              ? "rgb(204 51 51 / 56%)"
+              : "rgb(15 223 15 / 29%)",
             zIndex: "1000",
           }}
         >
-          Current Message:{" "}
-          {messageIndexSelected < 0 ||
-          messageIndexSelected === messageHistory.length - 1
-            ? "Latest"
-            : messageIndexSelected + 1}
-          <div>Total: {messageHistory.length}</div>
-          <div>
-            <Button
-              onClick={() => {
-                console.log("First");
-                if (messageHistory.length === 0) return;
-                setMessageIndexSelected(0);
-              }}
-              variant="contained"
-            >
-              First
-            </Button>
-            <Button
-              onClick={() => {
-                console.log("Previous");
-                if (messageHistory.length === 0) return;
-                if (messageIndexSelected === 0) return;
-                if (messageIndexSelected === -1) {
-                  const index = messageHistory.length - 2;
-                  setMessageIndexSelected(index);
-                  return;
-                }
-                setMessageIndexSelected(messageIndexSelected - 1);
-              }}
-              variant="contained"
-            >
-              Previous
-            </Button>
-            <Button
-              onClick={() => {
-                console.log("Next");
-                if (
-                  messageHistory.length === 0 ||
-                  messageIndexSelected === messageHistory.length - 1
-                )
-                  return;
-                setMessageIndexSelected(messageIndexSelected + 1);
-              }}
-              variant="contained"
-            >
-              Next
-            </Button>
-            <Button
-              onClick={() => {
-                console.log("Live");
-                if (messageHistory.length === 0) return;
-                setMessageIndexSelected(-1);
-              }}
-              variant="contained"
-            >
-              Last
-            </Button>
-            <Button
-              onClick={() => {
-                console.log("Erase");
-                setMessageIndexSelected(-1);
-                setMessageHistory([]);
-                setSelectedMessage("");
-              }}
-              variant="contained"
-            >
-              Erase
-            </Button>
+          <CardContent>
+            Current Message:{" "}
+            {messageIndexSelected < 0 ||
+            messageIndexSelected === messageHistory.length - 1
+              ? "Latest"
+              : messageIndexSelected + 1}
+            <div>Total: {messageHistory.length}</div>
+            <div style={{ display: "flex", gap: "8px", padding: "8px 0px" }}>
+              <Button
+                onClick={() => {
+                  console.log("First");
+                  if (messageHistory.length === 0) return;
+                  setMessageIndexSelected(0);
+                }}
+                variant="outlined"
+              >
+                First
+              </Button>
+              <Button
+                onClick={() => {
+                  console.log("Previous");
+                  if (messageHistory.length === 0) return;
+                  if (messageIndexSelected === 0) return;
+                  if (messageIndexSelected === -1) {
+                    const index = messageHistory.length - 2;
+                    setMessageIndexSelected(index);
+                    return;
+                  }
+                  setMessageIndexSelected(messageIndexSelected - 1);
+                }}
+                variant="outlined"
+              >
+                Previous
+              </Button>
+              <Button
+                onClick={() => {
+                  console.log("Next");
+                  if (
+                    messageHistory.length === 0 ||
+                    messageIndexSelected === messageHistory.length - 1
+                  )
+                    return;
+                  setMessageIndexSelected(messageIndexSelected + 1);
+                }}
+                variant="outlined"
+              >
+                Next
+              </Button>
+              <Button
+                onClick={() => {
+                  console.log("Live");
+                  if (messageHistory.length === 0) return;
+                  setMessageIndexSelected(-1);
+                }}
+                variant="outlined"
+              >
+                Last
+              </Button>
+              <Button
+                onClick={() => {
+                  console.log("Erase");
+                  setMessageIndexSelected(-1);
+                  setMessageHistory([]);
+                  setSelectedMessage("");
+                }}
+                variant="outlined"
+              >
+                Erase
+              </Button>
+            </div>
             <FormGroup>
               <FormControlLabel
                 control={
@@ -141,8 +153,8 @@ export const MessageHistoryProvider: FC<Props> = ({ children }) => {
                 label="Pause Record"
               />
             </FormGroup>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
         {children}
       </>
     </MessageHistoryContext.Provider>
