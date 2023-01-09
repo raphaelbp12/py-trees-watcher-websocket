@@ -64,13 +64,14 @@ export const MessageHistoryProvider: FC<Props> = ({ children }) => {
           Current Message:{" "}
           {messageIndexSelected < 0 ||
           messageIndexSelected === messageHistory.length - 1
-            ? "Live"
+            ? "Latest"
             : messageIndexSelected + 1}
           <div>Total: {messageHistory.length}</div>
           <div>
             <Button
               onClick={() => {
                 console.log("First");
+                if (messageHistory.length === 0) return;
                 setMessageIndexSelected(0);
               }}
               variant="contained"
@@ -80,6 +81,7 @@ export const MessageHistoryProvider: FC<Props> = ({ children }) => {
             <Button
               onClick={() => {
                 console.log("Previous");
+                if (messageHistory.length === 0) return;
                 if (messageIndexSelected === 0) return;
                 if (messageIndexSelected === -1) {
                   const index = messageHistory.length - 2;
@@ -109,6 +111,7 @@ export const MessageHistoryProvider: FC<Props> = ({ children }) => {
             <Button
               onClick={() => {
                 console.log("Live");
+                if (messageHistory.length === 0) return;
                 setMessageIndexSelected(-1);
               }}
               variant="contained"
