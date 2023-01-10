@@ -35,7 +35,8 @@ export const MessageHistoryProvider: FC<Props> = ({ children }) => {
   }, [stopRecord]);
 
   useEffect(() => {
-    if (!stopRecord) setMessageHistory([...messageHistory, message]);
+    if (!stopRecord && message !== "")
+      setMessageHistory([...messageHistory, message]);
   }, [message, setMessageHistory]);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export const MessageHistoryProvider: FC<Props> = ({ children }) => {
       return;
     }
 
-    if (messageIndexSelected > 0 && messageHistory.length > 0) {
+    if (messageIndexSelected >= 0 && messageHistory.length > 0) {
       const messageToSelect = messageHistory[messageIndexSelected];
       if (messageToSelect) setSelectedMessage(messageToSelect);
       return;
