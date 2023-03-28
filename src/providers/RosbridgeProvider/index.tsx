@@ -18,7 +18,7 @@ export const RosbridgeProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     const ros = new ROSLIB.Ros({
-      url: "ws://172.22.10.66:9090",
+      url: "ws://172.26.164.161:9090",
     });
 
     ros.on("connection", function () {
